@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>mannequin.js posture editor</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="mannequin.js posture editor">
+    <style>
+      html, body, posture-editor {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
+        display: flex;
+      }
+    </style>
+    <script type="module">
+      import { PostureEditor } from './posture-editor.mjs'
+      window.customElements.define('posture-editor', PostureEditor)
+    </script>
+  </head>
+  <body>
+    <posture-editor></posture-editor>
+    <posture-editor></posture-editor>
+    <posture-editor></posture-editor>
+  </body>
+</html>
+

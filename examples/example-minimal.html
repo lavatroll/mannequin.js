@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Example</title>
+    <link rel="stylesheet" href="./example.css">
+  </head>
+  <body>
+    <script type="module">
+      import { Male, createScene } from '../mannequin.mjs'
 
-<html>
-	<body>
-		<script src="../libs/three.min.js"></script>
-		<script src="../mannequin.js"></script>
-		
-		<script>
-		
-			createScene();
-			man = new Male();
-			
-		</script>
-	</body>
-</html>
+      const man = new Male()
+      const { scene, renderer, camera } = createScene(document.body)
+      scene.add(man)
+      setTimeout(() => renderer.render(scene, camera), 0)
+    </script>
+  </body></html>

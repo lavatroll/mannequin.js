@@ -1,46 +1,45 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Example</title>
+    <link rel="stylesheet" href="./example.css">
+  </head>
+  <body>
+    <script type="module">
+      import { MathUtils } from '../libs/three.mjs'
+      import { Mannequin, createScene, sin, cos } from '../mannequin.mjs'
 
-<html>
-	<body>
-		<script src="../libs/three.min.js"></script>
-		<script src="../mannequin.js"></script>
-		<script>
-		
-			createScene();
+      const n = 10
+      const people = []
 
-			n = 10;
-			people = [];
+      // creating several figures
+      for (let i = 0; i < n; i++) {
+        const feminine = Math.random() > 0.5,
+          height = MathUtils.randFloat(0.5, 1),
+          person = new Mannequin(feminine, height)
 
-			// creating several figures
-			for (var i = 0, pos = 0; i < n; i++)
-			{
-				var feminine = Math.random() > 0.5,
-					height = THREE.MathUtils.randFloat(0.5, 1),
-					person = new Mannequin(feminine, height);
-					
-				person.position.x = 50 * cos(i / n * 360);
-				person.position.z = 50 * sin(i / n * 360);
-				person.turn = 180 - i / n * 360;
-				
-				people.push(person);
-			}
+        person.position.x = 50 * cos(i / n * 360)
+        person.position.z = 50 * sin(i / n * 360)
+        person.turn = 180 - i / n * 360
 
-			// animating the figures
-			function animate(t)
-			{
-				for (var i = 0; i < people.length; i++)
-				{
-					people[i].position.y += (-29.5 - people[i].l_ankle.point(2, 2.5, 2).y);
+        people.push(person)
+      }
 
-					people[i].head.turn = -45 * sin(t + 80 * i);
-					people[i].torso.turn = -45 * sin(t + 90 * i);
-					people[i].l_elbow.bend = 30 + 30 * sin(t / 2 + 50 * i);
-					people[i].r_elbow.bend = 30 + 30 * sin(t / 2 + 150 * i);
-				}
+      // animating the figures
+      function animate(t) {
+        for (let i = 0; i < people.length; i++)
+        {
+          people[i].position.y += (-29.5 - people[i].l_ankle.point(scene, 2, 2.5, 2).y)
 
-				scene.rotation.y = t / 200;
-			}
+          people[i].head.turn = -45 * sin(t + 80 * i)
+          people[i].torso.turn = -45 * sin(t + 90 * i)
+          people[i].l_elbow.bend = 30 + 30 * sin(t / 2 + 50 * i)
+          people[i].r_elbow.bend = 30 + 30 * sin(t / 2 + 150 * i)
+        }
 
-		</script>
-	</body>
-</html>
+        scene.rotation.y = t / 200
+      }
+      const { scene } = createScene(document.body, animate)
+      scene.add(...people)
+    </script>
+  </body></html>

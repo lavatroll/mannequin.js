@@ -1,40 +1,33 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Example</title>
+    <link rel="stylesheet" href="./example.css">
+  </head>
+  <body>
+    <script type="module">
+      import { Male, Female, Child, createScene, sin } from '../mannequin.mjs'
+      import { addLabel } from './fonts/label.mjs'
 
-<html>
+      const man = new Male()
+      man.position.x = -30
 
-	<head>
-		<script src="../libs/three.min.js"></script>
-		<script src="../libs/TextGeometry.js"></script>
-		<script src="../libs/FontLoader.js"></script>
-		<script src="../libs/label.min.js"></script>
-		<script src="../mannequin.js"></script>
-	</head>
-	
-	<body>
-		<script>
-		
-			createScene();
+      const child = new Child()
 
-			man = new Male();
-			man.position.x = -30;
+      const woman = new Female()
+      woman.position.x = 30
 
-			child = new Child();
+      addLabel(man.head, 'body.bend', 8, 0.5)
+      addLabel(child.head, 'body.turn', 8, 0.5)
+      addLabel(woman.head, 'body.tilt', 8, 0.5)
 
-			woman = new Female();
-			woman.position.x = 30;
-
-			addLabel(man.head, 'body.bend', 8, 0.5);
-			addLabel(child.head, 'body.turn', 8, 0.5);
-			addLabel(woman.head, 'body.tilt', 8, 0.5);
-
-			function animate(t)
-			{
-				man.bend = 45 * sin(2 * t);
-				child.turn = 60 * sin(2 * t) - 90;
-				woman.tilt = 30 * sin(2 * t);
-			}		
-
-		</script>
-	</body>
-	
+      function animate(t) {
+        man.bend = 45 * sin(2 * t)
+        child.turn = 60 * sin(2 * t) - 90
+        woman.tilt = 30 * sin(2 * t)
+      }
+      const { scene } = createScene(document.body, animate)
+      scene.add(man, woman, child)
+    </script>
+  </body>
 </html>

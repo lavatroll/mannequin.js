@@ -1,50 +1,43 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Example</title>
+    <link rel="stylesheet" href="./example.css">
+  </head>
+  <body>
+    <script type="module">
+      import { Male, Female, Child, createScene, sin } from '../mannequin.mjs'
+      import { addLabel } from './fonts/label.mjs'
 
-<html>
+      const man = new Male()
+      man.position.x = -30
+      man.l_leg.raise = 20
+      man.r_leg.raise = 20
 
-	<head>
-		<script src="../libs/three.min.js"></script>
-		<script src="../libs/TextGeometry.js"></script>
-		<script src="../libs/FontLoader.js"></script>
-		<script src="../libs/label.min.js"></script>
-		<script src="../mannequin.js"></script>
-	</head>
-	
-	<body>
-		<script>
-		
-			createScene();
+      const child = new Child()
+      child.l_leg.raise = 40
+      child.r_leg.raise = 40
 
-			man = new Male();
-			man.position.x = -30;
-			man.l_leg.raise = 20;
-			man.r_leg.raise = 20;
+      const woman = new Female()
+      woman.position.x = 30
+      woman.l_leg.raise = 20
+      woman.r_leg.raise = 20
 
-			child = new Child();
-			child.l_leg.raise = 40;
-			child.r_leg.raise = 40;
+      addLabel(man.l_knee, 'knee.bend', 0, 0.15, 0, 1, 1)
+      addLabel(woman.r_knee, 'knee.bend', 15, -0.15, 0, 1, 3)
 
-			woman = new Female();
-			woman.position.x = 30;
-			woman.l_leg.raise = 20;
-			woman.r_leg.raise = 20;
+      function animate(t) {
+        man.r_knee.bend = 40 * sin(2 * t) + 40
+        man.l_knee.bend = 40 * sin(2 * t + 180) + 40
 
-			addLabel(man.l_knee, 'knee.bend', 0, 0.15, 0, 1, 1);
-			addLabel(woman.r_knee, 'knee.bend', 15, -0.15, 0, 1, 3);
+        child.r_knee.bend = 60 * sin(2 * t + 120) + 60
+        child.l_knee.bend = 60 * sin(2 * t + 300) + 60
 
-			function animate(t)
-			{
-				man.r_knee.bend = 40 * sin(2 * t) + 40;
-				man.l_knee.bend = 40 * sin(2 * t + 180) + 40;
-
-				child.r_knee.bend = 60 * sin(2 * t + 120) + 60;
-				child.l_knee.bend = 60 * sin(2 * t + 300) + 60;
-
-				woman.r_knee.bend = 40 * sin(2 * t + 50) + 40;
-				woman.l_knee.bend = 40 * sin(2 * t + 240) + 40;
-			}			
-
-		</script>
-	</body>
-	
+        woman.r_knee.bend = 40 * sin(2 * t + 50) + 40
+        woman.l_knee.bend = 40 * sin(2 * t + 240) + 40
+      }
+      const { scene } = createScene(document.body, animate)
+      scene.add(man, woman, child)
+    </script>
+  </body>
 </html>

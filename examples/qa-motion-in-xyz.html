@@ -1,27 +1,22 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Example</title>
+    <link rel="stylesheet" href="./example.css">
+  </head>
+  <body>
+    <script type="module">
+      import { Male, Female, createScene, sin, cos } from '../mannequin.mjs'
 
-<html>
+      const man = new Male()
+      const woman = new Female()
 
-	<head>
-		<script src="../libs/three.min.js"></script>
-		<script src="../mannequin.js"></script>
-	</head>
-	
-	<body>
-		<script>
-		
-			createScene();
-
-			man = new Male();
-			woman = new Female();
-
-			function animate(t)
-			{
-				man.position.x = 45 * sin(t);
-				woman.position.z = 45 * cos(t);
-			}		
-
-		</script>
-	</body>
-	
+      function animate(t) {
+        man.position.x = 45 * sin(t)
+        woman.position.z = 45 * cos(t)
+      }
+      const { scene } = createScene(document.body, animate)
+      scene.add(man, woman)
+    </script>
+  </body>
 </html>

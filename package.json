@@ -1,0 +1,37 @@
+{
+  "name": "mannequin.js",
+  "description": "a simple library of an articulated mannequin figure",
+  "version": "5.0",
+  "license": "GPL-3.0",
+  "author": "Pavel Boytchev",
+  "homepage": "https://boytchev.github.io/mannequin.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boytchev/mannequin.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/boytchev/mannequin.js/issues"
+  },
+  "keywords": ["three.js", "3D", "mannequin", "figure"],
+  "scripts": {
+    "postinstall": "node install.mjs",
+    "standard": "standard --fix"
+  },
+  "standard": {
+    "globals": [
+      "prompt",
+      "alert",
+      "HTMLElement",
+      "ResizeObserver"
+    ],
+    "ignore": [
+      "libs",
+      "oldies"
+    ]
+  },
+  "devDependencies": {
+    "three": "^0.160.0",
+    "replace-in-file": "^7.1.0",
+    "standard": "^17.1.0"
+  }
+}

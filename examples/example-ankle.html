@@ -1,46 +1,40 @@
 ﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Example</title>
+    <link rel="stylesheet" href="./example.css">
+  </head>
+  <body>
+    <script type="module">
+      import { Male, Female, Child, createScene, sin } from '../mannequin.mjs'
+      import { addLabel } from './fonts/label.mjs'
 
-<html>
+      const man = new Male()
+      man.position.x = -30
+      man.position.y = 3.5
 
-	<head>
-		<script src="../libs/three.min.js"></script>
-		<script src="../libs/TextGeometry.js"></script>
-		<script src="../libs/FontLoader.js"></script>
-		<script src="../libs/label.min.js"></script>
-		<script src="../mannequin.js"></script>
-	</head>
-	
-	<body>
-		<script>
-		
-			createScene();
+      const child = new Child()
 
-			man = new Male();
-			man.position.x = -30;
-			man.position.y = 3.5;
+      const woman = new Female()
+      woman.position.x = 30
 
-			child = new Child();
+      addLabel(man.l_ankle, 'ankle.bend', -1, -0.95, 3, 1, 2, 0)
+      addLabel(child.r_ankle, 'ankle.turn', 1, -1.7, 0.4, 1, 2, 0).scale.set(1.5, 1.5, 1.5)
+      addLabel(woman.r_ankle, 'ankle.tilt', 1, -1.2, 0.5, 1, 2, 0)
 
-			woman = new Female();
-			woman.position.x = 30;
+      function animate(t) {
+        man.r_ankle.bend = 50 * sin(2 * t) - 10
+        man.l_ankle.bend = 50 * sin(2 * t) - 10
 
-			addLabel(man.l_ankle, 'ankle.bend', -1, -0.95, 3, 1, 2, 0);
-			addLabel(child.r_ankle, 'ankle.turn', 1, -1.7, 0.4, 1, 2, 0).scale.set(1.5, 1.5, 1.5);
-			addLabel(woman.r_ankle, 'ankle.tilt', 1, -1.2, 0.5, 1, 2, 0);
+        child.r_ankle.turn = 30 * sin(2 * t) - 5
+        child.l_ankle.turn = 30 * sin(2 * t) - 5
 
-			function animate(t)
-			{
-				man.r_ankle.bend = 50 * sin(2 * t) - 10;
-				man.l_ankle.bend = 50 * sin(2 * t) - 10;
+        woman.r_ankle.tilt = 20 * sin(2 * t) - 20
+        woman.l_ankle.tilt = 20 * sin(2 * t) - 20
+      }
 
-				child.r_ankle.turn = 30 * sin(2 * t) - 5;
-				child.l_ankle.turn = 30 * sin(2 * t) - 5;
-
-				woman.r_ankle.tilt = 20 * sin(2 * t) - 20;
-				woman.l_ankle.tilt = 20 * sin(2 * t) - 20;
-			}
-			
-		</script>
-	</body>
-	
+      const { scene } = createScene(document.body, animate)
+      scene.add(man, woman, child)
+    </script>
+  </body>
 </html>
