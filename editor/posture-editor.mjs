@@ -84,7 +84,7 @@ const names = [
 export class PostureEditor extends HTMLElement {
   get css () {
     return `
-      :this {
+      :host {
         position: relative;
         display: inline-block;
         width: 100%;
