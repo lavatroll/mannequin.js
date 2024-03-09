@@ -388,32 +388,26 @@ export class Joint extends Group {
   } // Joint.constructor
 
   get z () {
-    this.rotation.reorder('YXZ')
     return this.rotation.z * 180 / Math.PI
   }
 
   set z (angle) {
-    this.rotation.reorder('YXZ')
     this.rotation.z = angle * Math.PI / 180
   } // Joint.z
 
   get x () {
-    this.rotation.reorder('YZX')
     return this.rotation.x * 180 / Math.PI
   }
 
   set x (angle) {
-    this.rotation.reorder('YZX')
     this.rotation.x = angle * Math.PI / 180
   } // Joint.x
 
   get y () {
-    this.rotation.reorder('ZXY')
     return this.rotation.y * 180 / Math.PI
   }
 
   set y (angle) {
-    this.rotation.reorder('ZXY')
     this.rotation.y = angle * Math.PI / 180
   } // Joint.y
 
@@ -422,12 +416,11 @@ export class Joint extends Group {
   }
 
   get posture () {
-    this.rotation.reorder('XYZ')
     return [grad(this.rotation.x), grad(this.rotation.y), grad(this.rotation.z)]
   }
 
   set posture (pos) {
-    this.rotation.set(rad(pos[0]), rad(pos[1]), rad(pos[2]), 'XYZ')
+    this.rotation.set(rad(pos[0]), rad(pos[1]), rad(pos[2]))
   } // Joint.posture
 
   getBumper (x, y, z) {
@@ -610,13 +603,12 @@ export class Head extends Joint {
   }
 
   get posture () {
-    this.rotation.reorder('XYZ')
     return [grad(this.rotation.x), grad(this.rotation.y), grad(this.rotation.z)]
   }
 
   set posture (pos) {
-    this.rotation.set(rad(pos[0]), rad(pos[1]), rad(pos[2]), 'XYZ')
-    this.parentJoint.rotation.set(rad(pos[0]), rad(pos[1]), rad(pos[2]), 'XYZ')
+    this.rotation.set(rad(pos[0]), rad(pos[1]), rad(pos[2]))
+    this.parentJoint.rotation.set(rad(pos[0]), rad(pos[1]), rad(pos[2]))
   } // Head.posture
 } // Head
 
@@ -641,7 +633,6 @@ export class Leg extends Joint {
     const p = this.getBumper(5, 0, 0)
     if (p.x < 0) result += -p.x
 
-    this.rotation.reorder('ZXY')
     const y = this.y
     if (y > +60) result += y - 60
     if (y < -60) result += -60 - y
@@ -691,12 +682,11 @@ export class Knee extends Joint {
   }
 
   get posture () {
-    this.rotation.reorder('XYZ')
     return [grad(this.rotation.z)]
   }
 
   set posture (pos) {
-    this.rotation.set(0, 0, rad(pos[0]), 'XYZ')
+    this.rotation.set(0, 0, rad(pos[0]))
   }
 } // Knee
 
@@ -757,7 +747,6 @@ export class Arm extends Joint {
 
     if (p.x < -7 && p.y > 0) result = p.y
 
-    this.rotation.reorder('ZXY')
     const r = this.rotation.y * 180 / Math.PI
     const min = -90
     const max = 90
@@ -811,12 +800,11 @@ export class Elbow extends Joint {
   }
 
   get posture () {
-    this.rotation.reorder('XYZ')
     return [grad(this.rotation.z)]
   }
 
   set posture (pos) {
-    this.rotation.set(0, 0, rad(pos[0]), 'XYZ')
+    this.rotation.set(0, 0, rad(pos[0]))
   }
 } // Elbow
 
@@ -988,9 +976,6 @@ export class Finger extends Phalange {
   }
 
   get posture () {
-    this.rotation.reorder('XYZ')
-    this.mid.rotation.reorder('XYZ')
-    this.tip.rotation.reorder('XYZ')
     return [
       grad(this.rotation.x),
       grad(this.rotation.y),
@@ -1005,12 +990,11 @@ export class Finger extends Phalange {
   }
 
   set posture (pos) {
-    this.rotation.reorder('XYZ')
     this.rotation.x = rad(pos[0])
     this.rotation.y = rad(pos[1])
     this.rotation.z = rad(pos[2])
-    this.mid.rotation.set(rad(pos[3]), 0, rad(pos[4]), 'XYZ')
-    this.tip.rotation.set(rad(pos[5]), 0, rad(pos[6]), 'XYZ')
+    this.mid.rotation.set(rad(pos[3]), 0, rad(pos[4]))
+    this.tip.rotation.set(rad(pos[5]), 0, rad(pos[6]))
   }
 } // Finger
 
